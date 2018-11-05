@@ -2,4 +2,7 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  form#form
+    input#messageInput(type="text", name="message")
+    button(type="submit") Generate Note
+  div#imageArea
