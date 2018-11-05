@@ -8,6 +8,8 @@ The app will take a simple text input and display it as a ransom note using phot
 
 In typography, the ransom note effect is the result of using an excessive number of juxtaposed typefaces. It takes its name from the appearance of a stereotypical ransom note, with the message formed from words or letters cut randomly from a magazine or newspaper in order to avoid using recognizable handwriting.
 
+Source: https://en.wikipedia.org/wiki/Ransom_note_effect
+
 # Connecting to Flickr API
 Get a Flickr API key here: https://www.flickr.com/services/apps/create/
 
