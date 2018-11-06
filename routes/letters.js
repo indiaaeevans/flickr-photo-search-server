@@ -21,10 +21,13 @@ router.get('/:letter', function (req, res, next) {
   const letter = req.params['letter'];
 
   if (!reg.test(letter)) {
-    res.send(`${letter} is not a letter`);
+    const error = new Error(`${letter} is not a letter`)
+    return next(error)
   } else {
     fs.readFile(`./datastore/${letter}.json`, 'utf8', function (err, data) {
-      if (err) throw err;
+      if (err) {
+        next(err); // Pass errors to Express.
+      }
       var photosArray = JSON.parse(data)['photos']['photo'];
       var numberOfPhotos = photosArray.length;
       let randomIndex = Math.floor(Math.random() * numberOfPhotos + 1)

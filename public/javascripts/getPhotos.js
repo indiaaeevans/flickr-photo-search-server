@@ -27,14 +27,16 @@ async function printMessage(string, printArea) {
     let charArray = string.split("");
     await asyncForEach(charArray, async (character) => {
 
-        let url = `http://localhost:3000/letters/${character}`;
+        if (character !== " ") {
+            let url = `http://localhost:3000/letters/${character}`;
 
-        await fetch(url).then(handleErrors).then(response => {
-            response.json().then(photo => {
-                let newImg = createImg(photo.url, character, character);
-                printArea.append(newImg);
-            })
-        }).catch(error => console.log(error));
+            await fetch(url).then(handleErrors).then(response => {
+                response.json().then(photo => {
+                    let newImg = createImg(photo.url, character, character);
+                    printArea.append(newImg);
+                })
+            }).catch(error => console.log(error.message));
+        }
     })
 }
 
