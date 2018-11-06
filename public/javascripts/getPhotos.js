@@ -30,11 +30,11 @@ async function printMessage(string, printArea) {
         if (character !== " ") {
             let url = `http://localhost:3000/letters/${character}`;
 
-            await fetch(url).then(handleErrors).then(response => {
-                response.json().then(photo => {
-                    let newImg = createImg(photo.url, character, character);
+            await fetch(url).then(handleErrors)
+                .then(response => response.json())
+                .then(response => {
+                    let newImg = createImg(response.url, character, character);
                     printArea.append(newImg);
-                })
             }).catch(error => console.log(error.message));
         }
     })
@@ -56,7 +56,8 @@ function handleErrors(response) {
 function createImg(src, alt, title) {
     var img = document.createElement('img');
     img.src = src;
-    img.width = '100';
+   // img.width = '100';
+    img.className = 'letter';
     if (alt != null) img.alt = alt;
     if (title != null) img.title = title;
     return img;
