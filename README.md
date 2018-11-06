@@ -1,8 +1,7 @@
-# flickr-photo-search-server
+# Ransom Note Generator
+![ransom note example](https://user-images.githubusercontent.com/22288641/48041773-c2658f80-e14c-11e8-95b1-e43bcfc33141.png)
 
-Node.js server for retrieving Flickr photos of letters, numbers, and symbols for a Ransom Note Generator app (coming soon).
-
-The app will take a simple text input and display it as a ransom note using photos hosted on Flickr.
+The app will take a simple text input (letters only--numbers and symbols coming soon) and display it as a ransom note using photos hosted on Flickr.
 
 # Background
 
@@ -23,9 +22,11 @@ The Flickr API provides a flickr.photos.search method to return a list of photos
 
 The body of the API response is streamed into a JSON file, with a name corresponding to whichever letter, number, or symbol was requested.
 
+To create the collections for each letter (numbers and symbols coming soon), hit the endpoint: localhost:3000/letters
+
 
 # Parsing user input and retrieving photos
-We will retrieve the details for individual photos from the datastore we created in the previous step. First we have to split the user input into individual characters.  Then, for each letter, number, or symbol in the message, we retrieve a random photo from the corresponding JSON file.
+We will retrieve the details for individual photos from the datastore we created in the previous step. First we have to split the user input into individual characters.  Then, for each letter, number, or symbol in the message, we retrieve a random photo from the corresponding JSON file. This time, we use the endpoint: localhost:3000/letters/<letter>
 
 # Constructing the image source URL
 With the data for each photo, we construct a source URL out of its ID, server ID, farm ID, and secret. The URL can then be used in the src attribute of an HTML \<img\> tag.
@@ -34,3 +35,6 @@ Flickr photo source URLs are constructed as follows:
 https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
 
 Documentation: https://www.flickr.com/services/api/misc.urls.html
+
+# See it in action
+After running the app and creating the collections of photos, go to localhost:3000/ and create your own ransom note!
