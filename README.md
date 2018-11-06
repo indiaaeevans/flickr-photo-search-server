@@ -1,8 +1,6 @@
 # Ransom Note Generator
 
-Node.js server for retrieving photos of letters (numbers and symbols coming soon...) to generate ransom notes
-
-The app will take a simple text input and display it as a ransom note using photos hosted on Flickr.
+The app will take a simple text input (letters only--numbers and symbols coming soon) and display it as a ransom note using photos hosted on Flickr.
 
 # Background
 
