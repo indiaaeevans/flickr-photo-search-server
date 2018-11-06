@@ -1,6 +1,6 @@
-# flickr-photo-search-server
+# Ransom Note Generator
 
-Node.js server for retrieving Flickr photos of letters, numbers, and symbols for a Ransom Note Generator app (coming soon).
+Node.js server for retrieving photos of letters (numbers and symbols coming soon...) to generate ransom notes
 
 The app will take a simple text input and display it as a ransom note using photos hosted on Flickr.
 
