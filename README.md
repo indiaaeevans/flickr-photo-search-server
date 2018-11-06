@@ -1,5 +1,5 @@
 # Ransom Note Generator
-![ransom note example](https://github.com/indiaaeevans/flickr-photo-search-server/issues/1#issue-377666672)
+![ransom note example](https://user-images.githubusercontent.com/22288641/48039177-a3adcb80-e141-11e8-9e8d-ec612b345175.png)
 
 The app will take a simple text input (letters only--numbers and symbols coming soon) and display it as a ransom note using photos hosted on Flickr.
 
