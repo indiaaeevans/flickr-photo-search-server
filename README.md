@@ -19,9 +19,9 @@ flickrKey = <your key here>
 flickrSecret = <your secret here>
 
 # Creating collections for each letter, number, or symbol
-The flickr.photos.search method will return a list of photos matching some criteria.  In our case we will search within specific groups on flickr and filter by tag.
+The Flickr API provides a flickr.photos.search method to return a list of photos matching some criteria.  In our case we will search within specific groups on Flickr and filter by tag.
 
-The data returned is streamed into a JSON file, with a name corresponding to whichever letter, number, or symbol was requested.
+The body of the API response is streamed into a JSON file, with a name corresponding to whichever letter, number, or symbol was requested.
 
 
 # Parsing user input and retrieving photos
