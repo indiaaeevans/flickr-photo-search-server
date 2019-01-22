@@ -8,6 +8,7 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 var lettersRouter = require('./routes/letters');
 var numbersRouter = require('./routes/numbers');
+var symbolsRouter = require('./routes/symbols');
 var app = express();
 
 // view engine setup
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/letters', lettersRouter);
 app.use('/numbers', numbersRouter);
+app.use('/symbols', symbolsRouter);
 
 
 // catch 404 and forward to error handler

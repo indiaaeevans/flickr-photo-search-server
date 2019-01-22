@@ -1,3 +1,6 @@
+const lettersRegEx = /^[a-z]+$/i;
+const numbersRegEx = /^[0-9]+$/;
+
 // in case the document is already rendered
 if (document.readyState != 'loading') runScript();
 // modern browsers
@@ -26,29 +29,42 @@ function clearChildElements(parent) {
 async function printMessage(string, printArea) {
     let charArray = string.split("");
     await asyncForEach(charArray, async (character) => {
-        const lettersRegEx = /^[a-z]+$/i;
-        const numbersRegEx = /^[0-9]+$/;
-
-        if (lettersRegEx.test(character)) {
-            let url = `http://localhost:3000/letters/${character}`;
-
-            await fetch(url).then(handleErrors)
-                .then(response => response.json())
-                .then(response => {
-                    let newImg = createImg(response.url, character, character);
-                    printArea.append(newImg);
-                }).catch(error => console.log(error.message));
-        } else if (numbersRegEx.test(character)) {
-            let url = `http://localhost:3000/numbers/${character}`;
-            await fetch(url).then(handleErrors)
-                .then(response => response.json())
-                .then(response => {
-                    let newImg = createImg(response.url, character, character);
-                    printArea.append(newImg);
-                }).catch(error => console.log(error.message));
-        } else if (character === " ") {
-            let newSpace = handleSpace();
-            printArea.append(newSpace);
+        let url = '';
+        switch (getCharacterType(character)) {
+            case 'letter':
+                url = `http://localhost:3000/letters/${character}`;
+                await fetch(url).then(handleErrors)
+                    .then(response => response.json())
+                    .then(response => {
+                        let newImg = createImg(response.url, character, character);
+                        printArea.append(newImg);
+                    }).catch(error => console.log(error.message));
+                break;
+            case 'number':
+                url = `http://localhost:3000/numbers/${character}`;
+                await fetch(url).then(handleErrors)
+                    .then(response => response.json())
+                    .then(response => {
+                        let newImg = createImg(response.url, character, character);
+                        printArea.append(newImg);
+                    }).catch(error => console.log(error.message));
+                break;
+            case 'space':
+                printArea.append(createSpace());
+                break;
+            // TO DO: handle symbols --for now we will just print a space
+            case 'symbol':
+                let symbolName = getSymbolName(character);
+                url = `http://localhost:3000/symbols/${symbolName}`
+                await fetch(url).then(handleErrors)
+                    .then(response => response.json())
+                    .then(response => {
+                        let newImg = createImg(response.url, character, character);
+                        printArea.append(newImg);
+                    }).catch(error => console.log(error.message));
+                break;
+            default:
+                console.log(`We were unable to process this character: ${character}`);
         }
     })
 }
@@ -66,18 +82,59 @@ function handleErrors(response) {
     return response;
 }
 
+function getCharacterType(character) {
+    if (lettersRegEx.test(character)) return 'letter';
+    if (numbersRegEx.test(character)) return 'number';
+    if (character === ' ') return 'space';
+    if (getSymbolName(character) !== 'symbol not found') return 'symbol';
+}
+
 function createImg(src, alt, title) {
     var img = document.createElement('img');
-    img.src = src;
-    // img.width = '100';
     img.className = 'letter';
-    if (alt != null) img.alt = alt;
-    if (title != null) img.title = title;
+    img.src = src;
+    img.alt = alt;
+    img.title = title;
     return img;
 }
 
-function handleSpace() {
+function createSpace() {
     var box = document.createElement('div');
     box.className = 'space';
     return box;
+}
+
+function getSymbolName(character) {
+    switch (character) {
+        case '!':
+            return 'exclamation'
+        case '&':
+            return 'ampersand'
+        case '?':
+            return 'questionmark'
+        case '.':
+            return 'period'
+        case '#':
+            return 'hash'
+        case '%':
+            return 'percent'
+        case '+':
+            return 'plus'
+        case '=':
+            return 'equals'
+        case ',':
+            return 'comma'
+        case '\'':
+            return 'apostrophe'
+        case '\\/':
+            return 'slash'
+        case '\"':
+            return 'quote'
+        case '*':
+            return 'asterisk'
+        case '$':
+            return 'dollar'
+        default:
+            return 'symbol not found'
+    }
 }
