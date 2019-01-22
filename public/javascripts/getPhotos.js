@@ -26,8 +26,10 @@ function clearChildElements(parent) {
 async function printMessage(string, printArea) {
     let charArray = string.split("");
     await asyncForEach(charArray, async (character) => {
+        const lettersRegEx = /^[a-z]+$/i;
+        const numbersRegEx = /^[0-9]+$/;
 
-        if (character !== " ") {
+        if (lettersRegEx.test(character)) {
             let url = `http://localhost:3000/letters/${character}`;
 
             await fetch(url).then(handleErrors)
@@ -35,7 +37,18 @@ async function printMessage(string, printArea) {
                 .then(response => {
                     let newImg = createImg(response.url, character, character);
                     printArea.append(newImg);
-            }).catch(error => console.log(error.message));
+                }).catch(error => console.log(error.message));
+        } else if (numbersRegEx.test(character)) {
+            let url = `http://localhost:3000/numbers/${character}`;
+            await fetch(url).then(handleErrors)
+                .then(response => response.json())
+                .then(response => {
+                    let newImg = createImg(response.url, character, character);
+                    printArea.append(newImg);
+                }).catch(error => console.log(error.message));
+        } else if (character === " ") {
+            let newSpace = handleSpace();
+            printArea.append(newSpace);
         }
     })
 }
@@ -56,9 +69,15 @@ function handleErrors(response) {
 function createImg(src, alt, title) {
     var img = document.createElement('img');
     img.src = src;
-   // img.width = '100';
+    // img.width = '100';
     img.className = 'letter';
     if (alt != null) img.alt = alt;
     if (title != null) img.title = title;
     return img;
+}
+
+function handleSpace() {
+    var box = document.createElement('div');
+    box.className = 'space';
+    return box;
 }

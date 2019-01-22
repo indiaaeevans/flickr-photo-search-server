@@ -1,7 +1,7 @@
 # Ransom Note Generator
 ![ransom note example](https://user-images.githubusercontent.com/22288641/48041773-c2658f80-e14c-11e8-95b1-e43bcfc33141.png)
 
-The app will take a simple text input (letters only--numbers and symbols coming soon) and display it as a ransom note using photos hosted on Flickr.
+The app will take a simple text input (letters and numbers only--symbols coming soon) and display it as a ransom note using photos hosted on Flickr.
 
 # Background
 
@@ -22,11 +22,16 @@ The Flickr API provides a flickr.photos.search method to return a list of photos
 
 The body of the API response is streamed into a JSON file, with a name corresponding to whichever letter, number, or symbol was requested.
 
-To create the collections for each letter (numbers and symbols coming soon), hit the endpoint: localhost:3000/letters
-
+To create the collections for all letters and numbers (symbols coming soon), hit the following endpoints: 
+localhost:3000/letters
+localhost:3000/numbers
 
 # Parsing user input and retrieving photos
-We will retrieve the details for individual photos from the datastore we created in the previous step. First we have to split the user input into individual characters.  Then, for each letter, number, or symbol in the message, we retrieve a random photo from the corresponding JSON file. This time, we use the endpoint: localhost:3000/letters/<letter>
+We will retrieve the details for individual photos from the datastore we created in the previous step. First we have to split the user input into individual characters.  Then, for each letter, number, or symbol in the message, we retrieve a random photo from the corresponding JSON file.
+
+For a letter, we use the endpoint: localhost:3000/letters/<letter>
+For a number, we use the endpoint: localhost:3000/numbers/<number>
+(symbols coming soon)
 
 # Constructing the image source URL
 With the data for each photo, we construct a source URL out of its ID, server ID, farm ID, and secret. The URL can then be used in the src attribute of an HTML \<img\> tag.
