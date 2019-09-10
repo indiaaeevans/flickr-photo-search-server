@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-var request = require('request');
 const utils = require('./utilities');
 
 const flickrPhotoSearchUrl =

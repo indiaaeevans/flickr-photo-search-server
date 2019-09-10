@@ -76,4 +76,6 @@ typings/
 .fusebox/
 
 # static json files
-datastore
+datastore/*
+
+!datastore/.gitkeep
